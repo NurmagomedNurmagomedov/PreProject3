@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список людей</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="submit"], .logout-button {
+            width: 10%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover, .logout-button:hover {
+            background-color: #0056b3;
+        }
+
+        .logout-form {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<table>
+<div class="logout-form">
+    <form action="/logout" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit" class="logout-button">Выйти</button>
+    </form>
+</div>
+</table>
+<h1>Список людей</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Email</th>
+        <th>Номер телефона</th>
+        <th>Адрес</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Проверка, есть ли пользователи -->
+    <tr th:if="${users.size() == 0}">
+        <td colspan="6">Нет данных для отображения</td>
+    </tr>
+    <!-- Цикл по списку пользователей -->
+    <tr th:each="user : ${users}" th:onclick="'window.location.href=' + '\'/admin/' + ${user.id}  +'\''" style="cursor: pointer;">
+        <td th:text="${user.name}">Имя</td>
+        <td th:text="${user.surName}">Фамилия</td>
+        <td th:text="${user.age}">Возраст</td>
+        <td th:text="${user.email}">Email</td>
+        <td th:text="${user.phone}">Номер телефона</td>
+        <td th:text="${user.address}">Адрес</td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<hr/>
+<div class="button-container">
+    <a href="/admin/new" class="button">Новый</a>
+</div>
+<!-- Logout form -->
+
+</body>
+</html>

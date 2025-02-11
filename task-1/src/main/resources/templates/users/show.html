@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователе</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .info strong {
+            color: #555;
+        }
+
+        a, form {
+            display: inline-block;
+            width: 48%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        form input[type="submit"] {
+            background-color: #FF4D4D;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #CC0000;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Информация о пользователе</h1>
+
+    <div class="info">
+        <strong>Имя:</strong> <span th:text="${user.getName()}">Иван</span>
+    </div>
+    <div class="info">
+        <strong>Фамилия:</strong> <span th:text="${user.getSurName()}">Иванов</span>
+    </div>
+    <div class="info">
+        <strong>Возраст:</strong> <span th:text="${user.getAge()}">30</span>
+    </div>
+    <div class="info">
+        <strong>Email:</strong> <span th:text="${user.getEmail()}">ivan@example.com</span>
+    </div>
+    <div class="info">
+        <strong>Телефон:</strong> <span th:text="${user.getPhone()}">+1234567890</span>
+    </div>
+    <div class="info">
+        <strong>Адрес:</strong> <span th:text="${user.getAddress()}">Москва, Россия</span>
+    </div>
+    <div class="info">
+        <strong>ID:</strong> <span th:text="${user.getId()}">1</span>
+    </div>
+
+    <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Редактировать</a>
+
+    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+        <input type="submit" value="Удалить"/>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}">
+    <h1>Обновление пользователя</h1>
+    <label for="name">Имя:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+
+    <label for="surName">Фамилия:</label>
+    <input type="text" th:field="*{surName}" id="surName"/>
+    <div class="error" th:if="${#fields.hasErrors('surName')}" th:errors="*{surName}">Surname Error</div>
+
+    <label for="age">Возраст:</label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
+
+    <label for="email">Email:</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+
+    <label for="phone">Телефон:</label>
+    <input type="text" th:field="*{phone}" id="phone"/>
+    <div class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</div>
+
+    <label for="address">Адрес:</label>
+    <input type="text" th:field="*{address}" id="address"/>
+    <div class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</div>
+
+    <input type="submit" value="Изменить!"/>
+</form>
+
+</body>
+</html>

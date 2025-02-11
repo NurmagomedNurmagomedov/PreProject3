@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователе</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .logout-form {
+            width: 100%;
+            text-align: right;
+            padding: 10px 20px;
+            background-color: #ffffff;
+        }
+
+        .logout-form button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .logout-form button:hover {
+            background-color: #007BFF;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .info:last-child {
+            border-bottom: none;
+        }
+
+        .info strong {
+            color: #555;
+        }
+
+        .info span {
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #FF4D4D;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #CC0000;
+        }
+
+        hr {
+            margin: 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="logout-form">
+    <form action="/logout" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit" class="logout-button">Выйти</button>
+    </form>
+</div>
+<hr>
+<div class="container">
+    <h1>Информация о пользователе</h1>
+    <div class="info">
+        <strong>Имя:</strong> <span th:text="${user.getName()}">Иван</span>
+    </div>
+    <div class="info">
+        <strong>Фамилия:</strong> <span th:text="${user.getSurName()}">Иванов</span>
+    </div>
+    <div class="info">
+        <strong>Возраст:</strong> <span th:text="${user.getAge()}">30</span>
+    </div>
+    <div class="info">
+        <strong>Email:</strong> <span th:text="${user.getEmail()}">ivan@example.com</span>
+    </div>
+    <div class="info">
+        <strong>Телефон:</strong> <span th:text="${user.getPhone()}">+1234567890</span>
+    </div>
+    <div class="info">
+        <strong>Адрес:</strong> <span th:text="${user.getAddress()}">Москва, Россия</span>
+    </div>
+    <div class="info">
+        <strong>Пароль:</strong> <span th:text="${user.getPassword()}">pass</span>
+    </div>
+    <div class="info">
+        <strong>ID:</strong> <span th:text="${user.getId()}">1</span>
+    </div>
+    <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Редактировать</a>
+    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="submit" value="Удалить">
+    </form>
+</div>
+</body>
+</html>
